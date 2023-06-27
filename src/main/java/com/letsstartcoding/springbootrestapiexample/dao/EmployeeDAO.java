@@ -1,7 +1,7 @@
 package com.letsstartcoding.springbootrestapiexample.dao;
 
 import java.util.List;
-
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,12 +25,25 @@ public class EmployeeDAO {
 		return employeeReository.findAll();
 	}
 	//update an employee
-	
+	public Employee findbyid(Long empid) {
+		/*Employee emp1= employeeReository.findById(empid);
+		return emp1;
+		*/
+		Optional<Employee> optionalEmployee = employeeReository.findById(empid); // Assuming getEmployee() returns Optional<Employee>
+
+	Employee employee=optionalEmployee.orElse(null);
+	return employee;
+	}
 	
 	
 	//delete an employee
 	public void delete(Employee emp) {
-		employeeReository.delete(emp);
+		
+		
+	employeeReository.delete(emp);
+	
+	
+	
 	}
 
 
