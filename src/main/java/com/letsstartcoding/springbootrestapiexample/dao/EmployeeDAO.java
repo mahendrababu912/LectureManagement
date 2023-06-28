@@ -1,11 +1,8 @@
 package com.letsstartcoding.springbootrestapiexample.dao;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.letsstartcoding.springbootrestapiexample.Entity.Employee;
 import com.letsstartcoding.springbootrestapiexample.repository.EmployeeRepository;
 @Service
@@ -14,7 +11,7 @@ public class EmployeeDAO {
 	private EmployeeRepository employeeReository;
 	
 	//to save an employee
-	public Employee saveEmployee(Employee emp) {
+	public Employee save(Employee emp) {
 		return employeeReository.save(emp);
 	}
 	
@@ -24,27 +21,21 @@ public class EmployeeDAO {
 	public List<Employee> findAll(){
 		return employeeReository.findAll();
 	}
-	//update an employee
-	public Employee findbyid(Long empid) {
-		/*Employee emp1= employeeReository.findById(empid);
-		return emp1;
-		*/
-		Optional<Employee> optionalEmployee = employeeReository.findById(empid); // Assuming getEmployee() returns Optional<Employee>
-
-	Employee employee=optionalEmployee.orElse(null);
-	return employee;
+	public Employee get(Long id) {
+		return employeeReository.findById(id).orElse(null);
 	}
-	
 	
 	//delete an employee
-	public void delete(Employee emp) {
-		
-		
-	employeeReository.delete(emp);
+      public String delete(Long id) {
+	 employeeReository.deleteById(id);
+	 return ""+id;
 	
-	
-	
-	}
+    }
+      
+      public Employee update(Employee emp) {
+    	  return employeeReository.findById(emp.getId()).orElse(null);
+    	  
+      }
 
 
 }
